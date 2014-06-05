@@ -4,6 +4,7 @@
 % ************************* 25.05.14 ***************************
 % ************************* 27.05.14 ***************************
 % ************************* 29.05.14 ***************************
+% *********** Виправлення Дутчака І.О. від 02.06.14 ************
 % *********** Виправлення Таврова Д.Ю. від 02.06.14 ************
 % ************************* 05.06.14 ***************************
 
@@ -84,6 +85,9 @@
 % пакет для параметричних команд
 \RequirePackage{xkeyval}
 
+% пакет для лічильників сторінок
+\usepackage{totcount}
+
 % 4. Основна частина
 \linespread{1.5} % інтервал "1,5"
 \renewcommand{\rmdefault}{ftm} % задаємо шрифт за промовчанням --- "Times New Roman" із пакету pscyr
@@ -105,6 +109,23 @@
 % команди для заборони розриву формул у небажаному місці
 \binoppenalty=10000
 \relpenalty=10000
+
+% ініціалізовуємо лічильники
+\newtotcounter{part}
+\newtotcounter{chapter}
+\newtotcounter{section}
+\newtotcounter{subsection}
+\newtotcounter{subsubsection}
+\newtotcounter{paragraph}
+\newtotcounter{subparagraph}
+\newtotcounter{page}
+\newtotcounter{equation}
+\newtotcounter{figure}
+\newtotcounter{table}
+\newtotcounter{footnote}
+\newtotcounter{mpfootnote}
+\newcounter{bibitemcount}
+\newtotcounter{bibitemcount}
 
 % команда для створення ненумерованого розділу, який тим не менше показується в змісті
 \newcommand{\uchapter}[1]{\chapter*{#1}\addcontentsline{toc}{chapter}{#1}} 
