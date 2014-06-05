@@ -86,7 +86,7 @@
 \RequirePackage{xkeyval}
 
 % пакет для лічильників сторінок
-\usepackage{totcount}
+%\usepackage{totcount}
 
 % 4. Основна частина
 \linespread{1.5} % інтервал "1,5"
@@ -111,21 +111,21 @@
 \relpenalty=10000
 
 % ініціалізовуємо лічильники
-\newtotcounter{part}
-\newtotcounter{chapter}
-\newtotcounter{section}
-\newtotcounter{subsection}
-\newtotcounter{subsubsection}
-\newtotcounter{paragraph}
-\newtotcounter{subparagraph}
-\newtotcounter{page}
-\newtotcounter{equation}
-\newtotcounter{figure}
-\newtotcounter{table}
-\newtotcounter{footnote}
-\newtotcounter{mpfootnote}
-\newcounter{bibitemcount}
-\newtotcounter{bibitemcount}
+%\newtotcounter{part}
+%\newtotcounter{chapter}
+%\newtotcounter{section}
+%\newtotcounter{subsection}
+%\newtotcounter{subsubsection}
+%\newtotcounter{paragraph}
+%\newtotcounter{subparagraph}
+%\newtotcounter{page}
+%\newtotcounter{equation}
+%\newtotcounter{figure}
+%\newtotcounter{table}
+%\newtotcounter{footnote}
+%\newtotcounter{mpfootnote}
+%\newcounter{bibitemcount}
+%\newtotcounter{bibitemcount}
 
 % команда для створення ненумерованого розділу, який тим не менше показується в змісті
 \newcommand{\uchapter}[1]{\chapter*{#1}\addcontentsline{toc}{chapter}{#1}} 
