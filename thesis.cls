@@ -111,21 +111,21 @@
 \relpenalty=10000
 
 % ініціалізуємо лічильники
-\newtotcounter{part}
-\newtotcounter{chapter}
-\newtotcounter{section}
-\newtotcounter{subsection}
-\newtotcounter{subsubsection}
-\newtotcounter{paragraph}
-\newtotcounter{subparagraph}
-\newtotcounter{page}
-\newtotcounter{equation}
-\newtotcounter{figure}
-\newtotcounter{table}
-\newtotcounter{footnote}
-\newtotcounter{mpfootnote}
-\newcounter{bibitemcount}
-\newtotcounter{bibitemcount}
+%\newtotcounter{part}
+%\newtotcounter{chapter}
+%\newtotcounter{section}
+%\newtotcounter{subsection}
+%\newtotcounter{subsubsection}
+%\newtotcounter{paragraph}
+%\newtotcounter{subparagraph}
+%\newtotcounter{page}
+%\newtotcounter{equation}
+%\newtotcounter{figure}
+%\newtotcounter{table}
+%\newtotcounter{footnote}
+%\newtotcounter{mpfootnote}
+%\newcounter{bibitemcount}
+%\newtotcounter{bibitemcount}
 
 % команда для створення ненумерованого розділу, який тим не менше показується в змісті
 \newcommand{\uchapter}[1]{\chapter*{#1}\addcontentsline{toc}{chapter}{#1}} 
@@ -513,7 +513,7 @@
 				\end{tabular}
 			\end{flushright}
 
-			\vfill 
+			\addvspace{24pt} %\vfill 
 			
 			\MakeUppercase{Завдання}
 
