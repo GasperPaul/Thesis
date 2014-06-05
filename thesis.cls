@@ -85,8 +85,8 @@
 % пакет для параметричних команд
 \RequirePackage{xkeyval}
 
-% пакет для лічильників сторінок
-%\usepackage{totcount}
+% пакет для лічильників
+%\RequirePackage{totcount}
 
 % 4. Основна частина
 \linespread{1.5} % інтервал "1,5"
