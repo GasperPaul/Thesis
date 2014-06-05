@@ -513,7 +513,7 @@
 				\end{tabular}
 			\end{flushright}
 
-			\vfill 
+			\addvspace{24pt} %\vfill 
 			
 			\MakeUppercase{Завдання}
 
