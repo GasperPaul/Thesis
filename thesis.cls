@@ -150,6 +150,10 @@
 \addcontentsline{toc}{chapter}{Додаток #1 #2}
 \titlespacing{\chapter}{0pt}{0pt}{49pt}
 \titleformat{\chapter}{\centering\normalsize\MakeUppercase}{\hspace{1cm}\thechapter}{0.5em}{}
+\setcounter{figure}{0}
+\setcounter{table}{0}
+\renewcommand{\thefigure}{#1.\arabic{figure}}
+\renewcommand{\thetable}{#1.\arabic{table}}
 }
 
 % будемо змінювати стилі заголовків
@@ -591,4 +595,16 @@
 
 		\setlength{\parindent}{1.25cm}
 }
+\makeatother
+
+%виправляємо помилки з апострофами в формулах
+\makeatletter
+\def\latex@@rquote{^\bgroup\prim@s} 
+\let\hang@@h@ngrquote\h@ngrquote
+\renewcommand{\h@ngrquote}{
+	\relax\ifmmode
+		\expandafter\latex@@rquote
+	\else
+		\expandafter\hang@@h@ngrquote
+	\fi}
 \makeatother
