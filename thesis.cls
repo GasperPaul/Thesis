@@ -571,15 +571,15 @@
 		\begin{center}
 			Календарний план
 
-			\addvspace{12pt}
+			\addvspace{24pt}
 
-			\begin{tabular}{|c|c|c|c|}
+			\begin{longtable}{|c|c|c|c|}
 			\hline
 			\No з/п & \parbox[t]{12em}{\centering{}Назва етапів виконання\\дипломної роботи} & \parbox[t]{10em}{\centering{}Строк виконання\\етапів роботи} & Примітка \\
-			\hline
-			\cmdThesis@Assigment@Calendar
-			\hline
-			\end{tabular}
+			\hline\kill\endfirsthead\endhead
+			\hline\endfoot
+				\cmdThesis@Assigment@Calendar
+			\end{longtable}
 			
 		\end{center}
 		
