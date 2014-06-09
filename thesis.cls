@@ -32,7 +32,7 @@
 % \append{номер}{назва}
 
 % 1. Ідентифікуємо клас
-\ProvidesClass{thesis}[2014/05/29 v1.5 Клас для написання диплому]
+\ProvidesClass{thesis}[2014/06/09 v1.7 Клас для написання диплому]
 \NeedsTeXFormat{LaTeX2e} % потрібний формат
 
 % 2. Завантажуємо "батьківський клас"
@@ -80,13 +80,13 @@
 \RequirePackage{icomma}
 
 % пакет для відображення форматування вихідних кодів
-% \RequirePackage{listings}
+\RequirePackage{listings}
 
 % пакет для параметричних команд
 \RequirePackage{xkeyval}
 
 % пакет для лічильників
-%\RequirePackage{totcount}
+\RequirePackage{totcount}
 
 % 4. Основна частина
 \linespread{1.5} % інтервал "1,5"
@@ -118,14 +118,14 @@
 %\newtotcounter{subsubsection}
 %\newtotcounter{paragraph}
 %\newtotcounter{subparagraph}
-%\newtotcounter{page}
+\regtotcounter{page}
 %\newtotcounter{equation}
-%\newtotcounter{figure}
-%\newtotcounter{table}
+%\regtotcounter{figure}
+%\regtotcounter{table}
 %\newtotcounter{footnote}
 %\newtotcounter{mpfootnote}
 %\newcounter{bibitemcount}
-%\newtotcounter{bibitemcount}
+%\regtotcounter{bibitemcount}
 
 % команда для створення ненумерованого розділу, який тим не менше показується в змісті
 \newcommand{\uchapter}[1]{\chapter*{#1}\addcontentsline{toc}{chapter}{#1}} 
@@ -349,7 +349,7 @@
 }
 	{%
 	\end{longtable}
-	\end{center}	
+	\end{center}
 }
 \setlength{\LTpre}{-14pt}
 \setlength{\LTpost}{-14pt}
@@ -517,7 +517,7 @@
 				\end{tabular}
 			\end{flushright}
 
-			\addvspace{24pt} %\vfill 
+			\addvspace{24pt} 
 			
 			\MakeUppercase{Завдання}
 
@@ -575,8 +575,9 @@
 
 			\begin{longtable}{|c|c|c|c|}
 			\hline
-			\No з/п & \parbox[t]{12em}{\centering{}Назва етапів виконання\\дипломної роботи} & \parbox[t]{10em}{\centering{}Строк виконання\\етапів роботи} & Примітка \\
-			\hline\kill\endfirsthead\endhead
+			\No з/п & \parbox[t]{14em}{\centering{}Назва етапів виконання\\дипломної роботи} & \parbox[t]{10em}{\centering{}Строк виконання\\етапів роботи} & Примітка \\
+			\hline
+			\kill\endfirsthead\endhead
 			\hline\endfoot
 				\cmdThesis@Assigment@Calendar
 			\end{longtable}
