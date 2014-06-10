@@ -9,6 +9,7 @@
 % ************************* 05.06.14 ***************************
 % ************************* 08.06.14 ***************************
 % ************************* 09.06.14 ***************************
+% *********** Виправлення Таврова Д.Ю. від 10.06.14 ************
 
 % Доступні команди:
 % \maketitlepage{ПІБ}{група}{керівник}{рецензент}{тема}
@@ -31,10 +32,10 @@
 % \intro
 % \conclusion
 % \begin{thebibliography} .. \end{thebibliography}
-% \append{номер}{назва}
+% \append{назва}
 
 % 1. Ідентифікуємо клас
-\ProvidesClass{thesis}[2014/06/09 v1.7 Клас для написання диплому]
+\ProvidesClass{thesis}[2014/06/10 v2.1 Клас для написання диплому]
 \NeedsTeXFormat{LaTeX2e} % потрібний формат
 
 % 2. Завантажуємо "батьківський клас"
@@ -63,7 +64,7 @@
 \RequirePackage{multirow} % пакет для об'єднання рядків таблиці
 
 % пакети для форматування відступів та полів
-\RequirePackage[top=2cm, bottom=2cm, left=3cm, right=2cm]{geometry} % задаємо поля сторінки
+\RequirePackage[includeheadfoot, headsep=0pt, top=2cm, bottom=2cm, left=3cm, right=2cm]{geometry} % задаємо поля сторінки
 \RequirePackage{indentfirst} % відступ для першого рядка абзацу
 \RequirePackage{hanging} % відступ для всіх інших рядків абзацу
 \RequirePackage{enumitem}	% пакет для форматування списків
@@ -82,7 +83,7 @@
 \RequirePackage{icomma}
 
 % пакет для відображення форматування вихідних кодів
-% \RequirePackage{listings}
+%\RequirePackage{listings}
 
 % пакет для параметричних команд
 \RequirePackage{xkeyval}
@@ -120,7 +121,7 @@
 %\newtotcounter{subsubsection}
 %\newtotcounter{paragraph}
 %\newtotcounter{subparagraph}
-%\newtotcounter{page}
+%\regtotcounter{page}
 %\newtotcounter{equation}
 %\newtotcounter{figure}
 %\newtotcounter{table}
@@ -142,21 +143,36 @@
 \newcommand{\shortings}{\uchapter{Перелік умовних позначень, скорочень і термінів}}
 
 % хитра команда для створення додатків
-\newcommand{\append}[2]{
+\newcounter{appendnum}
+\newcommand{\append}[1]{
 \titleformat{\chapter}{\centering\normalsize}{\hspace{1cm}\thechapter}{0.5em}{}
 \titlespacing{\chapter}{0pt}{0pt}{0pt}
-\chapter*{Додаток #1}
+%\ifnum \arabic{appendnum}=0 \ucahpter{Додатки} \else \clearpage \fi
+\chapter*{Додаток \Asbuk{appendnum}}
 \begin{center}
-#2
+#1
 \end{center}
-\addcontentsline{toc}{chapter}{Додаток #1 #2}
+\addcontentsline{toc}{chapter}{Додаток \Asbuk{appendnum} #1}
 \titlespacing{\chapter}{0pt}{0pt}{49pt}
 \titleformat{\chapter}{\centering\normalsize\MakeUppercase}{\hspace{1cm}\thechapter}{0.5em}{}
 \setcounter{figure}{0}
 \setcounter{table}{0}
-\renewcommand{\thefigure}{#1.\arabic{figure}}
-\renewcommand{\thetable}{#1.\arabic{table}}
+\renewcommand{\thefigure}{\Asbuk{appendnum}.\arabic{figure}}
+\renewcommand{\thetable}{\Asbuk{appendnum}.\arabic{table}}
 }
+% прибираємо недопустимі букви з позначення додатків
+\pretocmd\append{
+	\stepcounter{appendnum}
+	\ifnum\Asbuk{appendnum}=Ґ \stepcounter{appendnum}\fi
+	\ifnum\Asbuk{appendnum}=Є \stepcounter{appendnum}\fi
+	\ifnum\Asbuk{appendnum}=З \stepcounter{appendnum}\fi
+	\ifnum\Asbuk{appendnum}=І \stepcounter{appendnum}\fi
+	\ifnum\Asbuk{appendnum}=Ї \stepcounter{appendnum}\fi
+	\ifnum\Asbuk{appendnum}=Й \stepcounter{appendnum}\fi
+	\ifnum\Asbuk{appendnum}=О \stepcounter{appendnum}\fi
+	\ifnum\Asbuk{appendnum}=Ч \stepcounter{appendnum}\fi
+	\ifnum\Asbuk{appendnum}=Ь \stepcounter{appendnum}\fi
+}{}{}
 
 % будемо змінювати стилі заголовків
 % спочатку --- для розділу
@@ -167,16 +183,16 @@
 			{} % текст, що передує назві
 	
 % тепер --- для підрозділу
-\titleformat{\section} % указуємо, що модифікуємо саме підрозділ
+\titleformat{\section}[block] % указуємо, що модифікуємо саме підрозділ
 			{\normalsize} % указуємо формат назви (жирний)
-			{\thesection} % указуємо формат власне номера: це буде просто число, без крапки
+			{\hspace{1.25cm}\thesection} % указуємо формат власне номера: це буде просто число, без крапки
 			{0.5em} % відстань між номером і назвою
 			{} % текст, що передує назві
 
 % тепер --- для підрозділу ще нижчого рівня
-\titleformat{\subsection} % указуємо, що модифікуємо саме підрозділ нижнього рівня
+\titleformat{\subsection}[block] % указуємо, що модифікуємо саме підрозділ нижнього рівня
 			{\normalsize} % указуємо формат назви (жирний)
-			{\thesubsection} % указуємо формат власне номера: це буде просто число, без крапки
+			{\hspace{1.25cm}\thesubsection} % указуємо формат власне номера: це буде просто число, без крапки
 			{0.5em} % відстань між номером і назвою
 			{} % текст, що передує назві
 			
@@ -184,25 +200,34 @@
 \titlespacing{\chapter} % указуємо, що модифікуємо саме розділ
 			{0pt} % відступ зліва
 			{0pt} % відступ зверху (немає)
-			{49pt} % відступ знизу (2 рядки)
+			{42pt} % відступ знизу (2 рядки)
 
 % тепер задамо відступи для заголовку підрозділу			
 \titlespacing{\section} % указуємо, що модифікуємо саме підрозділ
-			{\parindent} % відступ зліва
-			{49pt} % відступ зверху (2 рядки)
-			{49pt} % відступ знизу (2 рядки)
+			{0pt} % відступ зліва
+			{42pt} % відступ зверху (2 рядки)
+			{42pt} % відступ знизу (2 рядки)
 			
 % тепер задамо відступи для заголовку підрозділу ще нижчого рівня
 \titlespacing{\subsection} % указуємо, що модифікуємо саме підрозділ нижнього рівня
-			{\parindent} % відступ зліва
-			{49pt} % відступ зверху (2 рядки)
-			{49pt} % відступ знизу (2 рядки)
+			{0pt} % відступ зліва
+			{42pt} % відступ зверху (2 рядки)
+			{42pt} % відступ знизу (2 рядки)
+
+% тепер зробимо так, щоб між двома заголовками була звичайна відстань
+\preto\section{%
+	\ifnum\value{section}=0\addvspace{-42pt}\fi%
+}
+
+\preto\subsection{%
+	\ifnum\value{subsection}=0\addvspace{-42pt}\fi%
+}
 			
 % видозмінюємо зміст
 \makeatletter
 \renewcommand{\tableofcontents}{
 	\clearpage
-	\thispagestyle{empty}
+	\thispagestyle{plain}
 
 	\begin{center}
 	  Зміст
@@ -213,79 +238,18 @@
 \makeatother
 
 % підганяємо висоту рядка в таблиці
-\renewcommand{\arraystretch}{1.2}
+\renewcommand{\arraystretch}{1.5}
 
 % змінюємо формат нумерації формул
 \renewcommand{\theequation}{\arabic{chapter}.\arabic{equation}}
 
-% нові демаркатори для списків
-\renewcommand{\theenumi}{\arabic{enumi})}
-\renewcommand{\theenumii}{\arabic{enumii})}
-\renewcommand\labelenumi{\theenumi}
-\renewcommand\labelenumii{\theenumii}
-
 % задамо оновлені списки, з правильними відступами
 % нумерований першого рівня
-\newcounter{No}
-\renewenvironment{enumerate}[1][\asbuk{No})]
- 	{\begin{list}{#1}{
- 		  \setlength\partopsep{0pt}
-		  \setlength\parskip{0pt}
-		  \setlength\parsep{0pt}
-		  \setlength\topsep{0pt}
-		  \setlength\itemsep{0pt}
-		  \setlength{\itemindent}{1.9cm}
-		  \setlength{\leftmargin}{0pt}
-		  \usecounter{No}
-		}
-	}
-	{\end{list}}
-
-% ненумерований першого рівня
-\renewenvironment{itemize}[1][{-}]
-	{\begin{list}{#1}{
-		\setlength\partopsep{0pt}
-	  \setlength\parskip{0pt}
-	  \setlength\parsep{0pt}
-	  \setlength\topsep{0pt}
-	  \setlength\itemsep{0pt}
-	  \setlength{\itemindent}{1.7cm}
-	  \setlength{\leftmargin}{0pt}
-		}
-  }
-  {\end{list}}
-  
-% нумерований другого рівня
-\newcounter{NoEnum2}
-\newenvironment{enumerate2}[1][\arabic{NoEnum2})]
- 	{\begin{list}{#1}{
- 		  \setlength\partopsep{0pt}
-		  \setlength\parskip{0pt}
-		  \setlength\parsep{0pt}
-		  \setlength\topsep{0pt}
-		  \setlength\itemsep{0pt}
-		  \setlength{\itemindent}{2.6cm}
-		  \setlength{\leftmargin}{0pt}
-		  \usecounter{NoEnum2}
-		}
-	}
-	{\end{list}}
-	
-% мерований другого рівня
-\newcounter{NoItem2}
-\newenvironment{itemize2}[1][\arabic{NoItem2})]
- 	{\begin{list}{#1}{
- 		  \setlength\partopsep{0pt}
-		  \setlength\parskip{0pt}
-		  \setlength\parsep{0pt}
-		  \setlength\topsep{0pt}
-		  \setlength\itemsep{0pt}
-		  \setlength{\itemindent}{2.35cm}
-		  \setlength{\leftmargin}{0pt}
-		  \usecounter{NoItem2}
-		}
-	}
-	{\end{list}}
+\AddEnumerateCounter{\asbuk}{\@asbuk}{\cyrm}
+\setlist[itemize,1]{label=-, partopsep=0pt, parsep=0pt, topsep=0pt, itemsep=0pt, itemindent=1.7cm, leftmargin=0pt}
+\setlist[enumerate,1]{label=\asbuk*), partopsep=0pt, parsep=0pt, topsep=0pt, itemsep=0pt, itemindent=1.9cm, leftmargin=0pt}
+\setlist[itemize,2]{label=-, partopsep=0pt, parsep=0pt, topsep=0pt, itemsep=0pt, itemindent=2.6cm, leftmargin=0pt}
+\setlist[enumerate,2]{label=\arabic*), partopsep=0pt, parsep=0pt, topsep=0pt, itemsep=0pt, itemindent=2.6cm, leftmargin=0pt}
 
 % тепер займемося змістом
 % задаємо відстань між точками
@@ -323,13 +287,14 @@
 \renewcommand{\cftsubsecfont}{\mdseries} % стиль заголовку (звичайний)
 \renewcommand{\cftsubsecleader}{\cftdotfill{\cftsubsecdotsep}} % чим заповнювати проміжок від заголовку до номеру сторінки (точками)
 
-% заголовки таблиць і рисунків
+% заголовки таблиць, рисунків і лістингів
 \DeclareCaptionLabelFormat{tablecap}{Таблиця #2} % формат за промовчанням "Табл." не влаштовує
 \DeclareCaptionLabelFormat{figurecap}{Рисунок #2} % формат за промовчанням "Рис." не влаштовує
-\DeclareCaptionLabelSeparator{dash}{~--~} % рисунки й таблиці треба відділяти тире, а не крапкою
+%\DeclareCaptionFormat{listing}{Лістинг файлу #3} % формат за промовчанням "Listing" не влаштовує
 
-\captionsetup[table]{singlelinecheck=false, justification=raggedright, labelsep=dash, labelformat=tablecap, font = {stretch = 1.5}} % формат для таблиць
-\captionsetup[figure]{justification=centering, labelsep=dash, labelformat=figurecap, font = {stretch = 1.5}} % формат для рисунків
+\captionsetup[table]{margin=0pt,singlelinecheck=false, justification=justified, labelsep=endash, labelformat=tablecap, font = {stretch = 1.5}} % формат для таблиць
+\captionsetup[figure]{justification=centering, labelsep=endash, labelformat=figurecap, font = {stretch = 1.5}} % формат для рисунків
+%\captionsetup[lstlisting]{margin=0pt, format=listing, singlelinecheck=false, font = {stretch = 1.5}} % формат для лістингів
 
 % команда, що змінює латинські літери на кирилічні в підрисунках
 \renewcommand{\thesubfigure}{\asbuk{subfigure}}
@@ -426,29 +391,28 @@
 
 		з напрямку підготовки 6.040301 \invcommas{Прикладна математика}
 
-		на тему: {#5}
+		на тему: \invcommas{#5}
 
-		\addvspace{6pt} % невеликий відступ
+		\vfill % невеликий відступ
 
+		Виконав: студент IV курсу, групи {#2} 
+		
 		{\renewcommand{\arraystretch}{0.8}
-		\begin{tabular}{lll}
-			\multicolumn{3}{l}{Виконав: студент IV курсу, групи {#2}} \\[3pt]
-			\multicolumn{2}{c}{{#1}} & \_\_\_\_\_\_\_\_\_\_\_\_\_\\[6pt]
+		\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lll}
+			& {#1} & \_\_\_\_\_\_\_\_\_\_\_\_\_\\[6pt]
 			Керівник & {#3} & \_\_\_\_\_\_\_\_\_\_\_\_\_\\[6pt]
-			Консультанти: & & \\[3pt]
-			%-- з матем. забезпечення & асистент Терещенко~І.~О. & \_\_\_\_\_\_\_\_\_\_\_\_\_\\[3pt]
-			-- з охорони праці & ст. викладач Луц~Т.~Є. & \_\_\_\_\_\_\_\_\_\_\_\_\_\\[3pt]
-			-- з нормоконтролю & ст. викладач Мальчиков~В.~В. & \_\_\_\_\_\_\_\_\_\_\_\_\_\\[6pt]
+			Консультант з охорони праці & ст. викл. Луц~Т.~Є. & \_\_\_\_\_\_\_\_\_\_\_\_\_\\[3pt]
+			Консультант з нормоконтролю & ст. викл. Мальчиков~В.~В. & \_\_\_\_\_\_\_\_\_\_\_\_\_\\[6pt]
 			Рецензент & {#4} & \_\_\_\_\_\_\_\_\_\_\_\_\_\\
-		\end{tabular}}
+		\end{tabular*}}
 		
 		\vfill % автоматично заповнюємо проміжок
 		
 		\begin{flushright}
 			\renewcommand{\arraystretch}{0.8}
 			\begin{tabular}{l}
-				Засвідчую, що у цій дипломній роботі\\
-				немає запозичень з праць інших авторів\\
+				Засвідчую, що в цій дипломній роботі\\
+				немає запозичень із праць інших авторів\\
 				без відповідних посилань.\\
 				Студент~\_\_\_\_\_\_\_\_\_\_\_\_\_
 			\end{tabular}
@@ -457,7 +421,7 @@
 		\vfill
 
 		\begin{center}
-			Київ --- \the\year
+			Київ --- \the\year\ року
 		\end{center}
 		
 		\clearpage % починаємо з нової сторінки
@@ -495,13 +459,16 @@
 	  \pagestyle{empty}
 	  \setlength{\parindent}{0cm}
 		\begin{center} % центрування
-			\MakeUppercase{Національний технічний університет України}
+			\textbf{Національний технічний університет України}
 			
-			\MakeUppercase{\invcommas{Київський політехнічний інститут}}
+			\textbf{\invcommas{Київський політехнічний інститут}}
+		\end{center}
 
 			Факультет прикладної математики
 			
 			Кафедра прикладної математики
+			
+			Освітньо-кваліфікаційний рівень \invcommas{Бакалавр}
 
 			Напрям підготовки: 6.040301 \invcommas{Прикладна математика}
 			
@@ -519,52 +486,45 @@
 				\end{tabular}
 			\end{flushright}
 
-			\addvspace{24pt} %\vfill 
-			
-			\MakeUppercase{Завдання}
+		\begin{center}
+			\textbf{\MakeUppercase{Завдання}}
 
-			на дипломну роботу студенту 
+			\textbf{на дипломну роботу студенту}
+
+			%\addvspace{14pt}
 
 			\cmdThesis@Assigment@StudentName
 
 		\end{center}
 
-		1. Тема роботи \cmdThesis@Assigment@ThesisName 
+		1. Тема роботи: \cmdThesis@Assigment@ThesisName
 
 		керівник роботи \cmdThesis@Assigment@AdvisorName,
 
-		затверджені наказом по університету від \cmdThesis@Assigment@Order
+		затверджені наказом по університету від 	\cmdThesis@Assigment@Order.
 
-		2. Строк подання студентом роботи: \cmdThesis@Assigment@ApplicationDate
+		2. Строк подання студентом роботи:			\cmdThesis@Assigment@ApplicationDate
 
-		3. Вихідні дані до роботи: 
+		3. Вихідні дані до роботи: 					\cmdThesis@Assigment@InputData
 
-		\cmdThesis@Assigment@InputData
+		4. Перелік завдань, які потрібно розробити: \cmdThesis@Assigment@Contents
 
-		4. Зміст розрахунково-пояснювальної записки (перелік завдань, які потрібно розробити):
-
-		\cmdThesis@Assigment@Contents
-
-		5. Перелік графічного матеріалу (з точним зазначенням обов'язкових креслень):
-
-		\cmdThesis@Assigment@Graphics
+		5. Перелік графічного матеріалу: 			\cmdThesis@Assigment@Graphics
 
 		6. Консультанти розділів роботи:
 
 		\addvspace{12pt}
+		\begin{center}
 		%\renewcommand{\arraystretch}{0.8}
 		\begin{tabular}{|c|c|c|c|}
 			\hline
 			Розділ & Прізвище, ініціали та посада & \multicolumn{2}{c|}{Підпис, дата} \\ \cline{3-4}
 			& консультанта & \parbox[t]{4em}{\centering{}завдання\\видав} & \parbox[t]{4em}{\centering{}завдання\\прийняв} \\
-			%\hline
-			%Матем. забезпечення & Терещенко І.О., асистент & & \\
 			\hline
-			Охорона праці & Луц~Т.~Є., ст. викладач & & \\
-			\hline
-			Нормоконтроль & Мальчиков~В.~В., ст. викладач & & \\
+			Охорона праці & Луц~Т.~Є., ст. викл. & & \\
 			\hline
 		\end{tabular}
+		\end{center}
 
 		\addvspace{12pt}
 
@@ -575,9 +535,11 @@
 
 			\addvspace{24pt}
 
-			\begin{longtable}{|c|c|c|c|}
+			\renewcommand{\arraystretch}{0.8}
+			\begin{longtable}{|c|p{12.5em}|p{8.5em}|c|}
+			%\multicolumn{4}{c}{Календарний план}\\
 			\hline
-			\No з/п & \parbox[t]{14em}{\centering{}Назва етапів виконання\\дипломної роботи} & \parbox[t]{10em}{\centering{}Строк виконання\\етапів роботи} & Примітка \\
+			\No\ з/п & \parbox[t]{12.5em}{\centering{}Назва етапів виконання\\дипломної роботи} & \parbox[t]{8.5em}{\centering{}Строк виконання\\етапів роботи} & Примітка \\
 			\hline
 			\kill\endfirsthead\endhead
 			\hline\endfoot
