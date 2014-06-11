@@ -10,6 +10,7 @@
 % ************************* 08.06.14 ***************************
 % ************************* 09.06.14 ***************************
 % *********** Виправлення Таврова Д.Ю. від 10.06.14 ************
+% *********** Виправлення Дутчака І.О. від 11.06.14 ************
 
 % Доступні команди:
 % \maketitlepage{ПІБ}{група}{керівник}{рецензент}{тема}
@@ -35,7 +36,7 @@
 % \append{назва}
 
 % 1. Ідентифікуємо клас
-\ProvidesClass{thesis}[2014/06/10 v2.1 Клас для написання диплому]
+\ProvidesClass{thesis}[2014/06/11 v2.2 Клас для написання диплому]
 \NeedsTeXFormat{LaTeX2e} % потрібний формат
 
 % 2. Завантажуємо "батьківський клас"
@@ -91,6 +92,9 @@
 % пакет для лічильників
 %\RequirePackage{totcount}
 
+% пакет для додаткових стилів таблиць
+%\RequirePackage{array}
+
 % 4. Основна частина
 \linespread{1.5} % інтервал "1,5"
 \renewcommand{\rmdefault}{ftm} % задаємо шрифт за промовчанням --- "Times New Roman" із пакету pscyr
@@ -114,21 +118,22 @@
 \relpenalty=10000
 
 % ініціалізовуємо лічильники
-%\newtotcounter{part}
-%\newtotcounter{chapter}
-%\newtotcounter{section}
-%\newtotcounter{subsection}
-%\newtotcounter{subsubsection}
-%\newtotcounter{paragraph}
-%\newtotcounter{subparagraph}
-%\regtotcounter{page}
-%\newtotcounter{equation}
-%\newtotcounter{figure}
-%\newtotcounter{table}
-%\newtotcounter{footnote}
-%\newtotcounter{mpfootnote}
-%\newcounter{bibitemcount}
-%\newtotcounter{bibitemcount}
+\@ifpackageloaded{totcount}{
+	%\newtotcounter{part}
+	%\newtotcounter{chapter}
+	%\newtotcounter{section}
+	%\newtotcounter{subsection}
+	%\newtotcounter{subsubsection}
+	%\newtotcounter{paragraph}
+	%\newtotcounter{subparagraph}
+	%\newtotcounter{footnote}
+	%\newtotcounter{mpfootnote}
+	\regtotcounter{page}
+	\newtotcounter{equation}
+	\newtotcounter{figure}
+	\newtotcounter{table}
+	\newtotcounter{bibitemcount}
+}{}
 
 % команда для створення ненумерованого розділу, який тим не менше показується в змісті
 \newcommand{\uchapter}[1]{\chapter*{#1}\addcontentsline{toc}{chapter}{#1}} 
@@ -143,16 +148,16 @@
 \newcommand{\shortings}{\uchapter{Перелік умовних позначень, скорочень і термінів}}
 
 % хитра команда для створення додатків
-\newcounter{appendnum}
+\newcounter{appendnum}\@ifpackageloaded{totcount}{\regtotcount{appendnum}}{}
 \newcommand{\append}[1]{
 \titleformat{\chapter}{\centering\normalsize}{\hspace{1cm}\thechapter}{0.5em}{}
 \titlespacing{\chapter}{0pt}{0pt}{0pt}
-%\ifnum \arabic{appendnum}=0 \ucahpter{Додатки} \else \clearpage \fi
+%\ifnum \arabic{appendnum}=1 \ucahpter{Додатки} \else \clearpage \fi
 \chapter*{Додаток \Asbuk{appendnum}}
 \begin{center}
 #1
 \end{center}
-\addcontentsline{toc}{chapter}{Додаток \Asbuk{appendnum} #1}
+\addcontentsline{toc}{chapter}{Додаток \Asbuk{appendnum}\ #1}
 \titlespacing{\chapter}{0pt}{0pt}{49pt}
 \titleformat{\chapter}{\centering\normalsize\MakeUppercase}{\hspace{1cm}\thechapter}{0.5em}{}
 \setcounter{figure}{0}
@@ -290,11 +295,22 @@
 % заголовки таблиць, рисунків і лістингів
 \DeclareCaptionLabelFormat{tablecap}{Таблиця #2} % формат за промовчанням "Табл." не влаштовує
 \DeclareCaptionLabelFormat{figurecap}{Рисунок #2} % формат за промовчанням "Рис." не влаштовує
-%\DeclareCaptionFormat{listing}{Лістинг файлу #3} % формат за промовчанням "Listing" не влаштовує
 
 \captionsetup[table]{margin=0pt,singlelinecheck=false, justification=justified, labelsep=endash, labelformat=tablecap, font = {stretch = 1.5}} % формат для таблиць
 \captionsetup[figure]{justification=centering, labelsep=endash, labelformat=figurecap, font = {stretch = 1.5}} % формат для рисунків
-%\captionsetup[lstlisting]{margin=0pt, format=listing, singlelinecheck=false, font = {stretch = 1.5}} % формат для лістингів
+
+% форматування вихідних кодів
+\@ifpackageloaded{listings}{
+	\DeclareCaptionFormat{listing}{Лістинг файлу #3} % формат за промовчанням "Listing" не влаштовує
+	\captionsetup[lstlisting]{margin=0pt, format=listing, singlelinecheck=false, font = {stretch = 1.5}} % формат для лістингів
+}{}
+
+% додаткові стилі для вирівнювання колонок в таблицях
+\@ifpackageloaded{array}{
+	\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash}p{#1}}
+	\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash}p{#1}}
+	\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash}p{#1}}
+}{}
 
 % команда, що змінює латинські літери на кирилічні в підрисунках
 \renewcommand{\thesubfigure}{\asbuk{subfigure}}
