@@ -10,6 +10,7 @@
 % ************************* 08.06.14 ***************************
 % ************************* 09.06.14 ***************************
 % *********** Виправлення Таврова Д.Ю. від 10.06.14 ************
+% *********** Виправлення Дутчака І.О. від 11.06.14 ************
 
 % Доступні команди:
 % \maketitlepage{ПІБ}{група}{керівник}{рецензент}{тема}
@@ -27,6 +28,13 @@
 %	StudentPIB -- Прізвище І.Б. студента 
 %	AdvisorPIB -- Прізвище І.Б. керівника
 % \annotation{заголовок}
+% \total{лічильник}, де лічильник -- це одне з наступних значень:
+%	page -- кількість сторінок
+%	equations -- кількість рівнянь
+%	figures -- кількість рисунків
+%	tables -- кількість таблиць
+%	bibitemcount -- кількість елементів списку посилань
+%	appendnum --  кількість додатків
 % \tableofcontents
 % \shortings
 % \intro
@@ -35,7 +43,7 @@
 % \append{назва}
 
 % 1. Ідентифікуємо клас
-\ProvidesClass{thesis}[2014/06/10 v2.0 Клас для написання диплому]
+\ProvidesClass{thesis}[2014/06/11 v2.2 Клас для написання диплому]
 \NeedsTeXFormat{LaTeX2e} % потрібний формат
 
 % 2. Завантажуємо "батьківський клас"
@@ -91,6 +99,9 @@
 % пакет для лічильників
 \RequirePackage{totcount}
 
+% пакет для створення нових стилів для вирівнювання колонок в таблицях
+%\RequirePackage{array}
+
 % 4. Основна частина
 \linespread{1.5} % інтервал "1,5"
 \renewcommand{\rmdefault}{ftm} % задаємо шрифт за промовчанням --- "Times New Roman" із пакету pscyr
@@ -114,21 +125,22 @@
 \relpenalty=10000
 
 % ініціалізовуємо лічильники
-%\newtotcounter{part}
-%\newtotcounter{chapter}
-%\newtotcounter{section}
-%\newtotcounter{subsection}
-%\newtotcounter{subsubsection}
-%\newtotcounter{paragraph}
-%\newtotcounter{subparagraph}
-\regtotcounter{page}
-%\newtotcounter{equation}
-%\newtotcounter{figure}
-%\newtotcounter{table}
-%\newtotcounter{footnote}
-%\newtotcounter{mpfootnote}
-%\newcounter{bibitemcount}
-%\newtotcounter{bibitemcount}
+\@ifpackageloaded{totcount}{
+	%\regtotcounter{part}
+	%\regtotcounter{chapter}
+	%\regtotcounter{section}
+	%\regtotcounter{subsection}
+	%\regtotcounter{subsubsection}
+	%\regtotcounter{paragraph}
+	%\regtotcounter{subparagraph}
+	%\regtotcounter{footnote}
+	%\regtotcounter{mpfootnote}
+	\regtotcounter{page}
+	\newtotcounter{equations}\AtBeginEnvironment{equation}{\stepcounter{equations}}
+	\newtotcounter{figures}\AtBeginEnvironment{figure}{\stepcounter{figures}}
+	\newtotcounter{tables}\AtBeginEnvironment{table}{\stepcounter{tables}}
+	\newtotcounter{bibitemcount}\pretocmd\bibitem{\stepcounter{bibitemcount}}{}{}
+}{}
 
 % команда для створення ненумерованого розділу, який тим не менше показується в змісті
 \newcommand{\uchapter}[1]{\chapter*{#1}\addcontentsline{toc}{chapter}{#1}} 
@@ -143,7 +155,7 @@
 \newcommand{\shortings}{\uchapter{Перелік умовних позначень, скорочень і термінів}}
 
 % хитра команда для створення додатків
-\newcounter{appendnum}
+\newcounter{appendnum}\@ifpackageloaded{totcount}{\regtotcounter{appendnum}}{}
 \newcommand{\append}[1]{
 \titleformat{\chapter}{\centering\normalsize}{\hspace{1cm}\thechapter}{0.5em}{}
 \titlespacing{\chapter}{0pt}{0pt}{0pt}
@@ -298,6 +310,13 @@
 \captionsetup[figure]{justification=centering, labelsep=endash, labelformat=figurecap, font = {stretch = 1.5}} % формат для рисунків
 \captionsetup[lstlisting]{margin=0pt, format=listing, singlelinecheck=false, font = {stretch = 1.5}} % формат для лістингів
 
+% додаткові стилі для вирівнювання колонок в таблицях
+\@ifpackageloaded{array}{
+	\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash}p{#1}}
+	\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash}p{#1}}
+	\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash}p{#1}}
+}{}
+
 % команда, що змінює латинські літери на кирилічні в підрисунках
 \renewcommand{\thesubfigure}{\asbuk{subfigure}}
 
@@ -404,7 +423,7 @@
 			& {#1} & \_\_\_\_\_\_\_\_\_\_\_\_\_\\[6pt]
 			Керівник & {#3} & \_\_\_\_\_\_\_\_\_\_\_\_\_\\[6pt]
 			Консультанти: & & \\[3pt]
-			-- з матем. забеспечення & асистент Терещенко~І.~О. & \_\_\_\_\_\_\_\_\_\_\_\_\_\\[3pt]
+			-- з матем. забезпечення & асистент Терещенко~І.~О. & \_\_\_\_\_\_\_\_\_\_\_\_\_\\[3pt]
 			-- з охорони праці & ст. викладач Луц~Т.~Є. & \_\_\_\_\_\_\_\_\_\_\_\_\_\\[3pt]
 			-- з нормоконтролю & ст. викладач Мальчиков~В.~В. & \_\_\_\_\_\_\_\_\_\_\_\_\_\\[6pt]
 			Рецензент & {#4} & \_\_\_\_\_\_\_\_\_\_\_\_\_\\
