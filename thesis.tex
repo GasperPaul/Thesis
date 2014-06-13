@@ -61,7 +61,7 @@
 
 Розроблено та протестовано програмне забезпечення, що реалізовує обрані методи моделювання дифузних процесів.
 
-Робота виконана на \total{page}~аркушах, містить посилання на \total{bibitemcount}~використаних літературних джерел. Робота містить \total{figures}~рисунків, \total{tables}~таблиці та \total{appendnum}~додатки.
+Робота виконана на \total{pages}~аркушах, містить посилання на \total{bibitemcount}~використаних літературних джерел. Робота містить \total{figures}~рисунків, \total{tables}~таблиці та \total{appendnum}~додатки.
 
 Ключові слова: процес конвекції-дифузії, дифузія, теплопровідність, рівняння теплопровідності, метод граничних елементів, метод колокації. 
 
@@ -74,7 +74,7 @@ We discuss the methods of numerical modeling of convection-diffusion processes w
 
 We describe and test software tools for simulation of diffusion processes developed as part of this thesis.
 
-Work is carried out on \total{page}~pages, list of used sources contains \total{bibitemcount}~items. There are \total{figures}~figures, \total{tables}~tables and \total{appendnum}~appendices.
+Work is carried out on \total{pages}~pages, list of used sources contains \total{bibitemcount}~items. There are \total{figures}~figures, \total{tables}~tables and \total{appendnum}~appendices.
 
 Keywords: convection-diffusion process, diffusion, thermal conductivity, heat equation, boundary elements method, collocation method.
 
@@ -87,7 +87,7 @@ Keywords: convection-diffusion process, diffusion, thermal conductivity, heat eq
 
 Разработано и протестировано програмное обеспечение, реализующее выбраный метод моделирования диффузных процессов.
 
-Работа выполнена на \total{page}~страницах, содержит ссылки на \total{bibitemcount}~использованых литературных источников. Работа содержит \total{figures}~рисунков, \total{tables}~таблиц и \total{appendnum}~приложения.
+Работа выполнена на \total{pages}~страницах, содержит ссылки на \total{bibitemcount}~использованых литературных источников. Работа содержит \total{figures}~рисунков, \total{tables}~таблицы и \total{appendnum}~приложения.
 
 Ключевые слова: процесс конвекции-диффузии, диффузия, теплопроводность, уравнение теплопроводности, метод граничных элементов, метод коллокации.
 
@@ -120,7 +120,7 @@ Keywords: convection-diffusion process, diffusion, thermal conductivity, heat eq
 \section{Вибір математичної моделі}
 Процес конвекції-дифузії --- це процес переносу та взаємопроникнення часток речовини, що зазвичай приводить до вирівнювання їх концентрацій по всьому об'єму. Зазвичай під дифузією розуміють процеси, що супроводжуються переносом речовини, однак іноді дифузійними називають також інші процеси перенесення: теплопровідність, в'язке тертя тощо \cite{Landafshitz}.
 
-Типовою математичною моделлю процесу конвекції-дифузії виступає диференційне рівняння переносу скалярної величини у просторі~\cite{Sokolofsky}:
+Типовою математичною моделлю процесу конвекції-дифузії виступає диференціальне рівняння переносу скалярної величини у просторі~\cite{Sokolofsky}:
 \begin{equation} \label{eq:ConvDiffGeneral}
 	\frac{\partial c}{\partial t} = \nabla \cdot (D \nabla c) - \nabla \cdot (\vec{v} c) + R,
 \end{equation}
@@ -137,7 +137,7 @@ Keywords: convection-diffusion process, diffusion, thermal conductivity, heat eq
 	\frac{\partial c}{\partial t} = D \nabla^2 c - \vec{v} \cdot \nabla c. 
 \end{equation}
 
-Якщо знехтувати переносом, то отримаємо параболічне диференційне рівняння в частинних похідних, що називається рівнянням теплопровідності:
+Якщо знехтувати переносом, то отримаємо параболічне диференціальне рівняння в частинних похідних, що називається рівнянням теплопровідності:
 \begin{equation} \label{eq:Heat}
 	\frac{\partial c}{\partial t} = D \nabla^2 c. 
 \end{equation}
@@ -149,7 +149,7 @@ Keywords: convection-diffusion process, diffusion, thermal conductivity, heat eq
 
 Враховуючи форму цих рівнянь, проаналізуємо методи чисельного розв'язку для рівняння першого порядку
 \begin{equation} \label{eq:FirstOrder}
-	\frac{\partial c}{\partial t} = D \frac{\partial^2 c}{\partial x^2} - v\nabla \frac{\partial c}{\partial x} + R.
+	\frac{\partial c}{\partial t} = D \frac{\partial^2 c}{\partial x^2} - v\frac{\partial c}{\partial x} + R.
 \end{equation}
 
 Реультати можна легко узагальнити на випадок 2-хвимірної і 3-хвимірної координатної системи.
@@ -215,7 +215,7 @@ Keywords: convection-diffusion process, diffusion, thermal conductivity, heat eq
 Головний недолік цього методу полягає у потребах великого обсягу пам'яті комп'ютера і високої швидкості розрахунку. 
 
 \subsection{Метод граничних елементів}
-Метод граничних елементів можна розглядати як модифікацію методу скінченних елементів для апроксимації шуканих функцій, але не в області вирішення задачі, а на її границі. Це дозволяє понизити розмірність задачі. В теоретичнй основі методу лежить перехід від частинних диференційних рівнянь до інтегральних рівнянь. Формулювання задачі в методі граничних елементів включає інтеграли шуканих функцій та їх похідних, що обчислюються лише по границі області~\cite{Vlasova}.
+Метод граничних елементів можна розглядати як модифікацію методу скінченних елементів для апроксимації шуканих функцій, але не в області вирішення задачі, а на її границі. Це дозволяє понизити розмірність задачі. В теоретичнй основі методу лежить перехід від частинних диференціальних рівнянь до інтегральних рівнянь. Формулювання задачі в методі граничних елементів включає інтеграли шуканих функцій та їх похідних, що обчислюються лише по границі області~\cite{Vlasova}.
 
 Для одновимірного випадку з~\eqref{eq:FirstOrder} без врахування конвекційної частини відповідне інтегральне рівняння матиме вигляд~\cite{Brebbia}:
 \begin{equation} \label{eq:Brebbia}
@@ -451,7 +451,7 @@ Keywords: convection-diffusion process, diffusion, thermal conductivity, heat eq
 	\item другий етап складається із власне обчислень за отирманою розрахунковою схемою.
 \end{itemize}
 
-Вихідними даними першого етапу є послідовність точок колокації та крок між ними. На основі цих даних та інформації про задачу (форму диференційного перетворення, обрані апроксимуючі функції) будується та вирішується система рівнянь, невідомими у якій є коефіцієнти обраних апроксимуючих функцій. Результатом виконання цього алгоритму є вектор коефіцієнтів для апроксимуючих функцій. 
+Вихідними даними першого етапу є послідовність точок колокації та крок між ними. На основі цих даних та інформації про задачу (форму диференціального перетворення, обрані апроксимуючі функції) будується та вирішується система рівнянь, невідомими у якій є коефіцієнти обраних апроксимуючих функцій. Результатом виконання цього алгоритму є вектор коефіцієнтів для апроксимуючих функцій. 
 
 Вихідними даними другого алгоритму є вектор граничних і початкових умов, отриманих за результатами апроксимації чи безпочередньо з умов модельованої задачі, крок часового та просторового розбиття, момент часу, до якого необхідно проводити моделювання, параметри модельованого процесу --- геометричні виміри та дифузійний коефіцієнт. На основі цих даних чисельним інтегруванням розраховуються матриці $H$, $G$ і $B$, будуються і вирішуються відповідні системи рівнянь. Результатом роботи алгоритму є матриця значень функції розподілу у фіксованих точках фазового простору, що відповідають заданому часовому та просторовому розбиттю.
 
@@ -492,28 +492,28 @@ Keywords: convection-diffusion process, diffusion, thermal conductivity, heat eq
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[scale=0.9]{test1.jpg}
+	\includegraphics[scale=0.9]{imgs/testing/test1.jpg}
 	\caption{Результати чисельного моделювання для $t\in[0; 60]$}
 	\label{test1}
 \end{figure}
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[scale=0.7]{test2.jpg}
+	\includegraphics[scale=0.7]{imgs/testing/test2.jpg}
 	\caption{Результати чисельного моделювання для $t = 1$}
 	\label{test2}
 \end{figure}
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[scale=0.7]{test3.jpg}
+	\includegraphics[scale=0.7]{imgs/testing/test3.jpg}
 	\caption{Результати чисельного моделювання для $t = 30$}
 	\label{test3}
 \end{figure}
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[scale=0.7]{test4.jpg}
+	\includegraphics[scale=0.7]{imgs/testing/test4.jpg}
 	\caption{Результати чисельного моделювання для $t = 60$}
 	\label{test4}
 \end{figure}
@@ -522,21 +522,21 @@ Keywords: convection-diffusion process, diffusion, thermal conductivity, heat eq
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[scale=0.7]{testan1.jpg}
+	\includegraphics[scale=0.7]{imgs/testing/testan1.jpg}
 	\caption{Результати аналітичного розв'язку для $t = 1$}
 	\label{analytical1}
 \end{figure}
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[scale=0.7]{testan2.jpg}
+	\includegraphics[scale=0.7]{imgs/testing/testan2.jpg}
 	\caption{Результати аналітичного розв'язку для $t = 30$}
 	\label{analytical2}
 \end{figure}
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[scale=0.7]{testan3.jpg}
+	\includegraphics[scale=0.7]{imgs/testing/testan3.jpg}
 	\caption{Результати аналітичного розв'язку для $t = 60$}
 	\label{analytical3}
 \end{figure}
@@ -579,28 +579,28 @@ Keywords: convection-diffusion process, diffusion, thermal conductivity, heat eq
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[scale=0.8]{test21.png}
+	\includegraphics[scale=0.8]{imgs/testing/test21.png}
 	\caption{Результати чисельного моделювання для $t\in[0; 3600]$}
 	\label{test21}
 \end{figure}
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[scale=0.8]{test22.png}
+	\includegraphics[scale=0.8]{imgs/testing/test22.png}
 	\caption{Результати чисельного моделювання для $t = 1$}
 	\label{test22}
 \end{figure}
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[scale=0.8]{test23.png}
+	\includegraphics[scale=0.8]{imgs/testing/test23.png}
 	\caption{Результати чисельного моделювання для $t = 1800$}
 	\label{test23}
 \end{figure}
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[scale=0.8]{test24.png}
+	\includegraphics[scale=0.8]{imgs/testing/test24.png}
 	\caption{Результати чисельного моделювання для $t = 3600$}
 	\label{test24}
 \end{figure}
@@ -609,21 +609,21 @@ Keywords: convection-diffusion process, diffusion, thermal conductivity, heat eq
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[scale=0.8]{testan21.png}
+	\includegraphics[scale=0.8]{imgs/testing/testan21.png}
 	\caption{Результати аналітичного розв'язку для $t = 1$}
 	\label{analytical21}
 \end{figure}
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[scale=0.8]{testan22.png}
+	\includegraphics[scale=0.8]{imgs/testing/testan22.png}
 	\caption{Результати аналітичного розв'язку для $t = 30$}
 	\label{analytical22}
 \end{figure}
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[scale=0.8]{testan23.png}
+	\includegraphics[scale=0.8]{imgs/testing/testan23.png}
 	\caption{Результати аналітичного розв'язку для $t = 60$}
 	\label{analytical23}
 \end{figure}
@@ -673,7 +673,7 @@ Keywords: convection-diffusion process, diffusion, thermal conductivity, heat eq
  
 \begin{figure}[!h]
 	\centering
-	\includegraphics[scale=0.65]{workspace.png}
+	\includegraphics[scale=0.65]{imgs/workspace.png}
 	\caption{План робочого приміщення}
 	\label{workspace}
 \end{figure}
@@ -817,17 +817,100 @@ Hammer~P.~C. Numerical Integration over Simplexes and Cones. / P.~C.~Hammer, O.~
 \end{thebibliography}
 
 \append{Вихідні коди програмних засобів}
-\lstinputlisting[language=Matlab, basicstyle=\small, breaklines=true, caption={графічний інтерфейс користувача}]{BEM.m}
+\lstinputlisting[language=Matlab, basicstyle=\small, breaklines=true, caption={графічний інтерфейс користувача}]{src/BEM.m}
 
-\lstinputlisting[language=Matlab, basicstyle=\small, breaklines=true, caption={метод колокації}]{collocation.m}
+\lstinputlisting[language=Matlab, basicstyle=\small, breaklines=true, caption={метод колокації}]{src/collocation.m}
 
-\lstinputlisting[language=Matlab, basicstyle=\small, breaklines=true, caption={моделювання процесу дифузії}]{SimulateHeatEq.m}
+\lstinputlisting[language=Matlab, basicstyle=\small, breaklines=true, caption={моделювання процесу дифузії}]{src/SimulateHeatEq.m}
 
-\lstinputlisting[language=Matlab, basicstyle=\small, breaklines=true, caption={обчислення аналітичного розв'язку для стаціонарного випадку}]{DiffusionTesting.m}
+\lstinputlisting[language=Matlab, basicstyle=\small, breaklines=true, caption={обчислення аналітичного розв'язку для стаціонарного випадку}]{src/DiffusionTesting.m}
 
-\lstinputlisting[language=Matlab, basicstyle=\small, breaklines=true, caption={обчислення аналітичного розв'язку для нестаціонарного випадку}]{DiffusionTesting1.m}
+\lstinputlisting[language=Matlab, basicstyle=\small, breaklines=true, caption={обчислення аналітичного розв'язку для нестаціонарного випадку}]{src/DiffusionTesting1.m}
 
 \append{Ілюстративний матеріал}
 
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[scale=0.6]{imgs/slides/slide1.png}
+	\caption{Слайд 1}
+	\label{slide1}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.5]{imgs/slides/slide2.png}
+	\caption{Слайд 2}
+	\label{slide1}
+\end{figure}
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[scale=0.55]{imgs/slides/slide3.png}
+	\caption{Слайд 3}
+	\label{slide3}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.55]{imgs/slides/slide4a.png}
+	\caption{Слайд 4а}
+	\label{slide4a}
+\end{figure}
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[scale=0.55]{imgs/slides/slide4b.png}
+	\caption{Слайд 4б}
+	\label{slide4b}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.55]{imgs/slides/slide5.png}
+	\caption{Слайд 5}
+	\label{slide5}
+\end{figure}
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[scale=0.55]{imgs/slides/slide6.png}
+	\caption{Слайд 6}
+	\label{slide6}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.55]{imgs/slides/slide7.png}
+	\caption{Слайд 7}
+	\label{slide7}
+\end{figure}
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[scale=0.55]{imgs/slides/slide8.png}
+	\caption{Слайд 8}
+	\label{slide8}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.55]{imgs/slides/slide9.png}
+	\caption{Слайд 9}
+	\label{slide9}
+\end{figure}
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[scale=0.55]{imgs/slides/slide10.png}
+	\caption{Слайд 10}
+	\label{slide10}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.55]{imgs/slides/slide11.png}
+	\caption{Слайд 11}
+	\label{slide11}
+\end{figure}
 
 \end{document}

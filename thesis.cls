@@ -11,7 +11,7 @@
 % ************************* 09.06.14 ***************************
 % *********** Виправлення Таврова Д.Ю. від 10.06.14 ************
 % *********** Виправлення Дутчака І.О. від 11.06.14 ************
-% *********** Виправлення Таврова Д.Ю. від 12.06.14 ************
+% *********** Виправлення Сахарова С.Ю. від 12.06.14 ***********
 
 % Доступні команди:
 % \maketitlepage{ПІБ}{група}{керівник}{рецензент}{тема}
@@ -31,6 +31,7 @@
 % \annotation{заголовок}
 % \total{лічильник}, де лічильник -- це одне з наступних значень:
 %	page -- кількість сторінок
+%	pages -- кількість сторінок без додатків
 %	equations -- кількість рівнянь
 %	figures -- кількість рисунків
 %	tables -- кількість таблиць
@@ -44,7 +45,7 @@
 % \append{назва}
 
 % 1. Ідентифікуємо клас
-\ProvidesClass{thesis}[2014/06/12 v2.3 Клас для написання диплому]
+\ProvidesClass{thesis}[2014/06/11 v2.2 Клас для написання диплому]
 \NeedsTeXFormat{LaTeX2e} % потрібний формат
 
 % 2. Завантажуємо "батьківський клас"
@@ -156,17 +157,19 @@
 \newcommand{\shortings}{\uchapter{Перелік умовних позначень, скорочень і термінів}}
 
 % хитра команда для створення додатків
+\newcounter{pages}\@ifpackageloaded{totcount}{\regtotcounter{pages}}{}
 \newcounter{appendnum}\@ifpackageloaded{totcount}{\regtotcounter{appendnum}}{}
 \newcommand{\append}[1]{
 \titleformat{\chapter}{\centering\normalsize}{\hspace{1cm}\thechapter}{0.5em}{}
 \titlespacing{\chapter}{0pt}{0pt}{0pt}
+\ifnum\value{appendnum}=1 \setcounter{pages}{\value{page}}\fi
 \chapter*{Додаток \Asbuk{appendnum}}
 \begin{center}
 #1
 \end{center}
-\addcontentsline{toc}{chapter}{Додаток \Asbuk{appendnum}\ #1}
 \titlespacing{\chapter}{0pt}{0pt}{49pt}
 \titleformat{\chapter}{\centering\normalsize\MakeUppercase}{\hspace{1cm}\thechapter}{0.5em}{}
+\addcontentsline{toc}{chapter}{Додаток \Asbuk{appendnum}\ #1}
 \setcounter{figure}{0}
 \setcounter{table}{0}
 \renewcommand{\thefigure}{\Asbuk{appendnum}.\arabic{figure}}
@@ -312,11 +315,13 @@
 \captionsetup[lstlisting]{margin=0pt, format=listing, singlelinecheck=false, font = {stretch = 1.5}} % формат для лістингів
 
 % додаткові стилі для вирівнювання колонок в таблицях
+\makeatletter
 \@ifpackageloaded{array}{
 	\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash}p{#1}}
 	\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash}p{#1}}
 	\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash}p{#1}}
 }{}
+\makeatother
 
 % команда, що змінює латинські літери на кирилічні в підрисунках
 \renewcommand{\thesubfigure}{\asbuk{subfigure}}
